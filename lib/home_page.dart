@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:shayari/title_page.dart';
+import 'package:flutter/services.dart';
 import 'package:shayari/utility.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +19,7 @@ class _HomePageState extends State<HomePage> {
         // barrierColor: Colors.transparent,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Container(
+            content: SizedBox(
               height: 90,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,37 +74,28 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () => showExitPopup(context),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Shayari',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 1.0,
-            ),
-          ),
-          centerTitle: false,
-          backgroundColor: Colors.red,
-          toolbarHeight: 55.5,
-          shadowColor: Colors.indigo,
+          title: const Text("Shayari"),
           actions: [
             IconButton(
               onPressed: () {
                 Utils.share();
               },
-              icon: const Icon(
-                Icons.share,
-                color: Colors.white,
-                size: 20.0,
-              ),
+              icon: const Icon(Icons.share),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.white,
-                size: 20.0,
-              ),
+            PopupMenuButton(
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 1,
+                  child: Text("About us"),
+                ),
+              ],
+              iconSize: 20.0,
+              color: Colors.white,
+              onSelected: (value) {
+                if (value == 1) {
+                  Utils.aboutDialogue(context);
+                }
+              },
             ),
           ],
         ),
@@ -113,7 +103,7 @@ class _HomePageState extends State<HomePage> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                'images/background.jpg',
+                "images/background.jpg",
               ),
               fit: BoxFit.fill,
             ),
@@ -131,14 +121,7 @@ class _HomePageState extends State<HomePage> {
                     Timer(
                       const Duration(milliseconds: 175),
                       () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const TitlePage();
-                            },
-                          ),
-                        );
+                        Navigator.pushNamed(context, 'title_page');
                       },
                     );
                   },

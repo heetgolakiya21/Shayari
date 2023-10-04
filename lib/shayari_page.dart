@@ -24,6 +24,7 @@ class _ShayariPageState extends State<ShayariPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     pageController = PageController(initialPage: widget.specificIndex);
   }
 
@@ -31,37 +32,28 @@ class _ShayariPageState extends State<ShayariPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          Utils.shayariName[Utils.commonIndex],
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1.0,
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.red,
-        toolbarHeight: 55.5,
-        shadowColor: Colors.indigo,
+        title: Text(Utils.shayariName[Utils.commonIndex]),
         actions: [
           IconButton(
             onPressed: () {
               Utils.share();
             },
-            icon: const Icon(
-              Icons.share,
-              color: Colors.white,
-              size: 20.0,
-            ),
+            icon: const Icon(Icons.share),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_vert,
-              color: Colors.white,
-              size: 20.0,
-            ),
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 1,
+                child: Text("About us"),
+              ),
+            ],
+            iconSize: 20.0,
+            color: Colors.white,
+            onSelected: (value) {
+              if (value == 1) {
+                Utils.aboutDialogue(context);
+              }
+            },
           ),
         ],
       ),
@@ -70,7 +62,7 @@ class _ShayariPageState extends State<ShayariPage> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'images/background.jpg',
+              "images/background.jpg",
             ),
             fit: BoxFit.fill,
           ),
@@ -81,7 +73,7 @@ class _ShayariPageState extends State<ShayariPage> {
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                '${widget.specificIndex + 1} / ${widget.totalShayariIndex}',
+                "${widget.specificIndex + 1} / ${widget.totalShayariIndex}",
                 style: const TextStyle(
                   color: Colors.indigo,
                   fontWeight: FontWeight.w500,
@@ -157,7 +149,7 @@ class _ShayariPageState extends State<ShayariPage> {
                           ),
                         );
                         FloatingSnackBar(
-                          message: 'Copied',
+                          message: "Copied",
                           context: context,
                           textStyle: const TextStyle(
                             color: Colors.red,
@@ -202,7 +194,7 @@ class _ShayariPageState extends State<ShayariPage> {
                           ),
                         );
                       },
-                      child: Container(
+                      child: SizedBox(
                         height: 35,
                         width: 35,
                         child: Image.asset(

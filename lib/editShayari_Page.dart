@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -8,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shayari/utility.dart';
+import 'dart:ui' as ui;
 import 'dart:math' as math;
 
 class EditShayari extends StatefulWidget {
@@ -15,7 +15,7 @@ class EditShayari extends StatefulWidget {
 
   EditShayari(
     this.allShayariSpecific,
-  ); // const EditShayari({Key? key}) : super(key: key);
+  );
 
   @override
   State<EditShayari> createState() => _EditShayariState();
@@ -57,7 +57,7 @@ class _EditShayariState extends State<EditShayari> {
           ),
           actions: <Widget>[
             ElevatedButton(
-              child: const Text('DONE'),
+              child: const Text("DONE"),
               onPressed: () {
                 Navigator.of(context).pop(); //dismiss the color picker
               },
@@ -236,7 +236,7 @@ class _EditShayariState extends State<EditShayari> {
                   Slider(
                     value: txtSize,
                     min: 10.0,
-                    max: 100.0,
+                    max: 50.0,
                     activeColor: Colors.red,
                     inactiveColor: Colors.purpleAccent,
                     thumbColor: Colors.green,
@@ -452,37 +452,28 @@ class _EditShayariState extends State<EditShayari> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          Utils.shayariName[Utils.commonIndex],
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1.0,
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.red,
-        toolbarHeight: 55.5,
-        shadowColor: Colors.indigo,
+        title: Text(Utils.shayariName[Utils.commonIndex]),
         actions: [
           IconButton(
             onPressed: () {
               Utils.share();
             },
-            icon: const Icon(
-              Icons.share,
-              color: Colors.white,
-              size: 20.0,
-            ),
+            icon: const Icon(Icons.share),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_vert,
-              color: Colors.white,
-              size: 20.0,
-            ),
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 1,
+                child: Text("About us"),
+              ),
+            ],
+            iconSize: 20.0,
+            color: Colors.white,
+            onSelected: (value) {
+              if (value == 1) {
+                Utils.aboutDialogue(context);
+              }
+            },
           ),
         ],
       ),
@@ -491,40 +482,40 @@ class _EditShayariState extends State<EditShayari> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'images/background.jpg',
+              "images/background.jpg",
             ),
             fit: BoxFit.fill,
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-                child: InkWell(
-                  onTap: backColor2,
-                  child: RepaintBoundary(
-                    key: globalKey,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: backColor,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.5,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: InkWell(
+                    onTap: backColor2,
+                    child: RepaintBoundary(
+                      key: globalKey,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: backColor,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(20.5),
                         ),
-                        borderRadius: BorderRadius.circular(20.5),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 10.0,
-                      ),
-                      alignment: Alignment.center,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 10.0,
+                        ),
+                        alignment: Alignment.center,
                         child: Text(
-                          '$blank ${widget.allShayariSpecific} $blank',
+                          "$blank ${widget.allShayariSpecific} $blank",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: txtColor,
@@ -626,7 +617,7 @@ class _EditShayariState extends State<EditShayari> {
                                       // For Creating File Number
                                       DateTime dt = DateTime.now();
                                       String time =
-                                          '${dt.year}${dt.month}${dt.day}${dt.hour}${dt.minute}${dt.second}';
+                                          "${dt.year}${dt.month}${dt.day}${dt.hour}${dt.minute}${dt.second}";
 
                                       // For Creating Directory
                                       final directory =

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 class Utils {
@@ -8,6 +9,39 @@ class Utils {
   }
 
   static int commonIndex = -1;
+
+  static Future aboutDialogue(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text("About us"),
+          contentPadding: const EdgeInsets.all(15.0),
+          titleTextStyle: const TextStyle(
+            color: Colors.red,
+            fontSize: 20.0,
+            fontWeight: FontWeight.w500,
+          ),
+          children: [
+            const Text(
+                "This is shayari app which is created by Heet Golakiya.\n\nit it most useable shayari app for sending shayari and customize shayari and than send it."),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
 
   static List<String> photo = [
     'images/gift.jpg',

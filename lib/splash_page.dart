@@ -31,20 +31,13 @@ class _SplashPageState extends State<SplashPage> {
 
   createFolder() async {
     final directory = await getExternalStorageDirectory();
-    final dirPath = '${directory?.path}/Shayari';
+    final dirPath = "${directory?.path}/Shayari";
     await Directory(dirPath).create();
   }
 
   pushReplacement() async {
-    await Future.delayed(const Duration(milliseconds: 1000));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return const HomePage();
-        },
-      ),
-    );
+    await Future.delayed(const Duration(milliseconds: 700));
+    Navigator.pushReplacementNamed(context, 'home_page');
   }
 
   @override
@@ -54,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
         color: Colors.white,
         child: Center(
           child: Image.asset(
-            'images/logo.png',
+            "images/logo.png",
             height: 130,
           ),
         ),

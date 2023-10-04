@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shayari/shayari_page.dart';
 import 'package:shayari/utility.dart';
 
@@ -41,37 +41,28 @@ class _TitlePageState extends State<TitlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          Utils.shayariName[Utils.commonIndex],
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1.0,
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.red,
-        toolbarHeight: 55.5,
-        shadowColor: Colors.indigo,
+        title: Text(Utils.shayariName[Utils.commonIndex]),
         actions: [
           IconButton(
             onPressed: () {
               Utils.share();
             },
-            icon: const Icon(
-              Icons.share,
-              color: Colors.white,
-              size: 20.0,
-            ),
+            icon: const Icon(Icons.share),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_vert,
-              color: Colors.white,
-              size: 20.0,
-            ),
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 1,
+                child: Text("About us"),
+              ),
+            ],
+            iconSize: 20.0,
+            color: Colors.white,
+            onSelected: (value) {
+              if (value == 1) {
+                Utils.aboutDialogue(context);
+              }
+            },
           ),
         ],
       ),
@@ -79,7 +70,7 @@ class _TitlePageState extends State<TitlePage> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'images/background.jpg',
+              "images/background.jpg",
             ),
             fit: BoxFit.fill,
           ),
